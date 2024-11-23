@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    width: 200;
+    justify-content: flex-end;
+    /* flex-grow: 1; */
+    /* flex-direction: column; */
+}
+
+.inputs {
+    width: 250px;
+}
+
+.input {
+    height: 50;
+    width: 50px;
+}
+
+.back {
+    display: flex;
+    width: 50;
+}
