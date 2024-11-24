@@ -10,7 +10,7 @@
     width: 250px;
 }
 
-.input {
+.input, .equals {
     height: 50;
     width: 50px;
 }
@@ -18,4 +18,8 @@
 .back {
     display: flex;
     width: 50;
+}
+
+.display {
+    padding-right: 5;
 }
