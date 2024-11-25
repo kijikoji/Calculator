@@ -87,9 +87,16 @@ const operate = function() {
             numberPair = sum.concat(arrayEnding)
         };
     };
+    if (numberPair % 1 != 0) {
+        console.log(numberPair[0].length);
+        console.log(numberPair[0]);
+        if(!numberPair[0].length) {
+            numberPair = Number(numberPair).toFixed(3);
+        };
+    }
     addDisplay(" = " + numberPair);
     previusValue = numberPair;
-    console.log(previusValue[0]);
+    console.log(previusValue.slice(previusValue.indexOf('.') + 1));
     justEqualed = true;
     if(previusValue[0] % 1 != 0) {
         secondDecimal = true;
