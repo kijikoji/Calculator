@@ -16,9 +16,19 @@
 .clear {
     display: flex;
     width: 50;
+    min-width: 50;
     justify-content: center;
 }
 
 .display {
     padding-right: 5;
+    max-width: 140;
+    min-height: 25;
+    word-wrap: break-word;
+    
+}
+
+.display-boc {
+    border: 2px solid #ccc;
+    width: 140;
 }

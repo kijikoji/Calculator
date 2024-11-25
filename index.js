@@ -18,10 +18,10 @@ const addDisplay = function(input) {
         displayValue = previusValue;
         console.log(displayValue);
         console.log(displayValue.indexOf("."));
-        // if(displayValue.indexOf(".") >= 0) {
-        //     secondDecimal = true;
-        //     console.log("second decimal true");
-        // }
+        if(displayValue.indexOf(".") >= 0) {
+            secondDecimal = true;
+            console.log("second decimal true");
+        }
     }
     if(input == ".") {
         if (secondDecimal) {
@@ -50,17 +50,17 @@ const clearDisplay = function() {
 };
 
 const operate = function() {
-    // console.log(displayValue.length);
-    // console.log(justEqualed);
+    // skips operation if display blank or equal just called
     if (displayValue.length == 0 || justEqualed) {
         console.log("skip nothing to operate");
         return;
     };
+    // makes an array of values and operator
     numberPair = displayValue.join("").split(/(\+|\-|\/|\*)/);
-    // console.log(numberPair);
     let sum = 0;
     operator = true;
 
+    // does leftmost operation until no mor operation are to be done
     while(operator) {
         operator = numberPair.find((value) => {
             if (value == "*" || value == "/" || value == "+" || value == "-") {
@@ -97,16 +97,21 @@ const operate = function() {
             numberPair = sum.concat(arrayEnding)
         };
     };
+    // rounds float values
     if (numberPair % 1 != 0) {
-        console.log(numberPair[0].length);
-        console.log(numberPair[0]);
-        if(!numberPair[0].length) {
+        console.log(numberPair.toString())
+        // console.log(numberPair[0].indexOf('.') + 1);
+        // console.log(numberPair[0].slice(numberPair[0].indexOf('.') + 1));
+        console.log(numberPair.toString().slice(numberPair.toString().indexOf('.') + 1).length);
+        const decimalLength = numberPair.toString().slice(numberPair.toString().indexOf('.') + 1).length;
+        if(!decimalLength == 16) {
             numberPair = Number(numberPair).toFixed(3);
+        } else {
+            numberPair = Number(numberPair).toFixed(decimalLength);
         };
     }
     addDisplay(" = " + numberPair);
     previusValue = numberPair;
-    console.log(previusValue.slice(previusValue.indexOf('.') + 1));
     justEqualed = true;
     if(previusValue[0] % 1 != 0) {
         secondDecimal = true;
