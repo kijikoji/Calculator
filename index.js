@@ -14,14 +14,14 @@ const updateDisplay = function() {
 
 const addDisplay = function(input) {
     console.log(input);
-    console.log(previusValue);
-    console.log(previusValue.length);
     if (previusValue.length > 0) {
         displayValue = previusValue;
         console.log(displayValue);
-        if(displayValue.indexOf(".")) {
-            secondDecimal = true;
-        }
+        console.log(displayValue.indexOf("."));
+        // if(displayValue.indexOf(".") >= 0) {
+        //     secondDecimal = true;
+        //     console.log("second decimal true");
+        // }
     }
     if(input == ".") {
         if (secondDecimal) {
@@ -29,9 +29,11 @@ const addDisplay = function(input) {
             return;
         };
         secondDecimal = true;
+        console.log("second decimal true");
     };
     if(input == "/" || input == "*" || input == "-" || input == "+") {
         secondDecimal = false
+        console.log("second decimal false");
     }
     displayValue.push(input);
     updateDisplay();
@@ -39,6 +41,8 @@ const addDisplay = function(input) {
 
 const clearDisplay = function() {
     displayValue = [];
+    secondDecimal = false;
+    console.log("second decimal false");
     updateDisplay();
 };
 
@@ -50,7 +54,7 @@ const operate = function() {
         return;
     };
     numberPair = displayValue.join("").split(/(\+|\-|\/|\*)/);
-    console.log(numberPair);
+    // console.log(numberPair);
     let sum = 0;
     operator = true;
 
@@ -85,8 +89,16 @@ const operate = function() {
     };
     addDisplay(" = " + numberPair);
     previusValue = numberPair;
-    console.log(previusValue);
+    console.log(previusValue[0]);
     justEqualed = true;
+    if(previusValue[0] % 1 != 0) {
+        secondDecimal = true;
+        console.log("second decimal true");
+    } else {
+        secondDecimal = false;
+        console.log("second decimal false");
+    }
+    
 };
 
 function main () {
