@@ -9,18 +9,14 @@ const updateDisplay = function() {
     displayDiv.textContent = displayValue.join("");
     justEqualed = false;
     previusValue = [];
-    // console.log(displayValue.join(""));
 };
 
 const addDisplay = function(input) {
     console.log(input);
     if (previusValue.length > 0) {
-        displayValue = previusValue;
-        console.log(displayValue);
-        console.log(displayValue.indexOf("."));
+        displayValue = [previusValue];
         if(displayValue.indexOf(".") >= 0) {
             secondDecimal = true;
-            console.log("second decimal true");
         }
     }
     if(input == ".") {
@@ -29,15 +25,14 @@ const addDisplay = function(input) {
             return;
         };
         secondDecimal = true;
-        console.log("second decimal true");
     };
     if (displayDiv.textContent == "ERROR DIVIDING BY ZERO") {
         clearDisplay();
     }
     if(input == "/" || input == "*" || input == "-" || input == "+") {
         secondDecimal = false
-        console.log("second decimal false");
     }
+    console.log(displayValue)
     displayValue.push(input);
     updateDisplay();
 };
@@ -45,7 +40,6 @@ const addDisplay = function(input) {
 const clearDisplay = function() {
     displayValue = [];
     secondDecimal = false;
-    console.log("second decimal false");
     updateDisplay();
 };
 
@@ -59,6 +53,7 @@ const operate = function() {
     numberPair = displayValue.join("").split(/(\+|\-|\/|\*)/);
     let sum = 0;
     operator = true;
+    let rounded = false;
 
     // does leftmost operation until no mor operation are to be done
     while(operator) {
@@ -99,26 +94,25 @@ const operate = function() {
     };
     // rounds float values
     if (numberPair % 1 != 0) {
-        console.log(numberPair.toString())
-        // console.log(numberPair[0].indexOf('.') + 1);
-        // console.log(numberPair[0].slice(numberPair[0].indexOf('.') + 1));
-        console.log(numberPair.toString().slice(numberPair.toString().indexOf('.') + 1).length);
         const decimalLength = numberPair.toString().slice(numberPair.toString().indexOf('.') + 1).length;
-        if(!decimalLength == 16) {
+        if(decimalLength > 15) {
             numberPair = Number(numberPair).toFixed(3);
+            rounded = true;
         } else {
             numberPair = Number(numberPair).toFixed(decimalLength);
         };
     }
-    addDisplay(" = " + numberPair);
+    if (rounded) {
+        addDisplay(" ≈ " + numberPair);
+    } else {
+        addDisplay(" = " + numberPair);
+    }
     previusValue = numberPair;
     justEqualed = true;
     if(previusValue[0] % 1 != 0) {
         secondDecimal = true;
-        console.log("second decimal true");
     } else {
         secondDecimal = false;
-        console.log("second decimal false");
     }
     
 };
