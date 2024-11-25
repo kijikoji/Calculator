@@ -1,16 +1,31 @@
 let displayValue = [];
 const displayDiv = document.querySelector(".display");
 let secondDecimal = false
+let previusValue = [];
+let justEqualed = false;
 
 
 const updateDisplay = function() {
     displayDiv.textContent = displayValue.join("");
+    justEqualed = false;
+    previusValue = [];
     // console.log(displayValue.join(""));
 };
 
 const addDisplay = function(input) {
+    console.log(input);
+    console.log(previusValue);
+    console.log(previusValue.length);
+    if (previusValue.length > 0) {
+        displayValue = previusValue;
+        console.log(displayValue);
+        if(displayValue.indexOf(".")) {
+            secondDecimal = true;
+        }
+    }
     if(input == ".") {
         if (secondDecimal) {
+            console.log("skip decimal")
             return;
         };
         secondDecimal = true;
@@ -28,6 +43,12 @@ const clearDisplay = function() {
 };
 
 const operate = function() {
+    // console.log(displayValue.length);
+    // console.log(justEqualed);
+    if (displayValue.length == 0 || justEqualed) {
+        console.log("skip nothing to operate");
+        return;
+    };
     numberPair = displayValue.join("").split(/(\+|\-|\/|\*)/);
     console.log(numberPair);
     let sum = 0;
@@ -58,13 +79,14 @@ const operate = function() {
                 break;
         };
         if(operator) {
-            console.log(sum);
             const arrayEnding = numberPair.slice(3);
             numberPair = sum.concat(arrayEnding)
-            console.log(numberPair);
         };
     };
     addDisplay(" = " + numberPair);
+    previusValue = numberPair;
+    console.log(previusValue);
+    justEqualed = true;
 };
 
 function main () {
