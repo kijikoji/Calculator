@@ -31,6 +31,9 @@ const addDisplay = function(input) {
         secondDecimal = true;
         console.log("second decimal true");
     };
+    if (displayDiv.textContent == "ERROR DIVIDING BY ZERO") {
+        clearDisplay();
+    }
     if(input == "/" || input == "*" || input == "-" || input == "+") {
         secondDecimal = false
         console.log("second decimal false");
@@ -70,6 +73,13 @@ const operate = function() {
                     * Number(numberPair[2])];
                 break;
             case "/":
+                if (Number(numberPair[2]) == 0) {
+                    clearDisplay();
+                    addDisplay("ERROR DIVIDING BY ZERO");
+                    justEqualed = true;
+                    secondDecimal = true;
+                    return;
+                }
                 sum = [Number(numberPair[0]) 
                     / Number(numberPair[2])];
                 break;
